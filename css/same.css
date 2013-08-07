@@ -1,105 +1,85 @@
-/* Custom button
--------------------------------------------------- */
-
-/* Override base .btn styles */
-/* Apply text and background changes to three key states: default, hover, and active (click). */
+/*@primary: #FF6200;
+@secondary-a: #FF8C00;
+@secondary-b: #FF1800;
+*/
 .btn-ttc,
 .btn-ttc:hover,
 .btn-ttc:active {
-  color: white;
+  color: #000000;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-  background-color: #007da7;
-}
-
-/* Apply the custom-colored gradients */
-/* Note: you'll need to include all the appropriate gradients for various browsers and standards. */
-.btn-ttc {
+  background-color: #ccf600;
   background-repeat: repeat-x;
-  background-image: linear-gradient(top, #009ED2 0%, #007DA7 100%);
-  ...
+  background-image: linear-gradient(top, #009ed2 0%, #007da7 100%);
 }
-
-/* Set the hover state */
-/* An easy hover state is just to move the gradient up a small amount. Add other embellishments as you see fit. */
 .btn-ttc:hover {
   background-position: 0 -15px;
 }
-
 .card {
-    display: inline-block;
-    margin: 20px 10px 20px 10px;
-    font-size: 72pt;
-    padding: 10px 40px 40px 40px;
-    border-radius: 15px;
-    /*border: 1px solid #ddd;*/
-    width: 150px;
-    height: 150px;
-    color: black;
-    text-align: center;
-    text-transform: uppercase;    
-    z-index: 10;
-    /*position: absolute;*/
-    background-color: #bbb;
-}
+  display: inline-block;
+  margin: 20px 10px 20px 10px;
+  font-size: 72pt;
+  padding: 10px 40px 40px 40px;
+  border-radius: 15px;
+  /*border: 1px solid #ddd;*/
 
+  width: 150px;
+  height: 150px;
+  color: #000000;
+  text-align: center;
+  text-transform: uppercase;
+  z-index: 10;
+  /*position: absolute;*/
+
+  background-color: #ccf600;
+}
 #symbol-holder {
-    background-color: #bbb;
+  background-color: #ccf600;
 }
-
 .previous-symbol {
-    background-color: #ccc;
+  background-color: #ccc;
 }
-
 #card2 {
-    color: orange;
+  color: orange;
 }
-
 .disabled {
-    background-color: #aaa;
-    color: #888;
+  background-color: #aaa;
+  color: #888;
 }
-
 .hidden {
-    visibility: hidden;
+  visibility: hidden;
 }
-
 body {
-    background-color: #030;
+  background-color: #dafb3f;
 }
-
 .wrapper {
-    width: 440px;
-    margin: 40px auto;
+  width: 440px;
+  margin: 40px auto;
 }
-
 #description,
 #game-over,
 #game-holder {
-    height: 380px;
-    background-color: #313;
-    padding: 20px;
-    z-index: 1;
-    border: 15px solid #777;
-    color: white;
+  height: 380px;
+  background-color: #e3fb71;
+  padding: 20px;
+  z-index: 1;
+  border: 15px solid #85a000;
+  color: #000000;
 }
-
 #game-info {
-    color: #a7a;
-    /*color: #9f9;*/
-}
+  color: #000000;
+  /*color: #9f9;*/
 
+}
 #game-over {
-    text-align: center;
-    font-size: 24pt;
-    color: white;
+  text-align: center;
+  font-size: 24pt;
+  color: #000000;
 }
-
 #slider {
-    z-index: -1;
-    position: absolute;
-    background-color: green;
+  z-index: -1;
+  position: absolute;
+  background-color: green;
 }
-
 /*.score-multiplier {
     background-color: #bbb;
     border-radius: 20px;
@@ -111,10 +91,10 @@ body {
     color: black;
 }
 */
-
 .remains-message {
-    color: #a7a;
-    font-size: 80%;
-    padding-top: 20px;
-    /*text-align: center;*/
+  color: #000000;
+  font-size: 80%;
+  padding-top: 20px;
+  /*text-align: center;*/
+
 }

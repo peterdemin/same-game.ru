@@ -1,0 +1,123 @@
+/*@primary: #FF6200;
+@secondary-a: #FF8C00;
+@secondary-b: #FF1800;
+*/
+
+@primary: #FF8C00;
+@secondary-a: #FF1800;
+@secondary-b: #FF6200;
+
+
+@card-background: #CCF600;
+@page-background: #DAFB3F;
+@table-background: #E3FB71;
+@table-border: #85A000;
+@font-color: black;
+
+.btn-ttc,
+.btn-ttc:hover,
+.btn-ttc:active {
+  color: @font-color;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: @card-background;
+  background-repeat: repeat-x;
+  background-image: linear-gradient(top, #009ED2 0%, #007DA7 100%);
+}
+
+.btn-ttc:hover {
+  background-position: 0 -15px;
+}
+
+.card {
+    display: inline-block;
+    margin: 20px 10px 20px 10px;
+    font-size: 72pt;
+    padding: 10px 40px 40px 40px;
+    border-radius: 15px;
+    /*border: 1px solid #ddd;*/
+    width: 150px;
+    height: 150px;
+    color: @font-color;
+    text-align: center;
+    text-transform: uppercase;
+    z-index: 10;
+    /*position: absolute;*/
+    background-color: @card-background;
+}
+
+#symbol-holder {
+    background-color: @card-background;
+}
+
+.previous-symbol {
+    background-color: #ccc;
+}
+
+#card2 {
+    color: orange;
+}
+
+.disabled {
+    background-color: #aaa;
+    color: #888;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+body {
+    background-color: @page-background;
+}
+
+.wrapper {
+    width: 440px;
+    margin: 40px auto;
+}
+
+#description,
+#game-over,
+#game-holder {
+    height: 380px;
+    background-color: @table-background;
+    padding: 20px;
+    z-index: 1;
+    border: 15px solid @table-border;
+    color: @font-color;
+}
+
+#game-info {
+    color: @font-color;
+    /*color: #9f9;*/
+}
+
+#game-over {
+    text-align: center;
+    font-size: 24pt;
+    color: @font-color;
+}
+
+#slider {
+    z-index: -1;
+    position: absolute;
+    background-color: green;
+}
+
+/*.score-multiplier {
+    background-color: #bbb;
+    border-radius: 20px;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    font-size: 20pt;
+    display: inline-block;
+    color: black;
+}
+*/
+
+.remains-message {
+    color: @font-color;
+    font-size: 80%;
+    padding-top: 20px;
+    /*text-align: center;*/
+}
