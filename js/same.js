@@ -4,6 +4,7 @@ function SameGame($) {
     var green;
     var red;
     var next_color;
+    var button_color;
     var $slider;
     var score = 0;
     var score_multiplier = 1;
@@ -11,12 +12,12 @@ function SameGame($) {
     var symbol_seq = "ab";
     var current_idx = 0;
     var game_duration = 30;
+    var is_opening = false;
 
-    var show_current = function() {
+    var show_current = function () {
         $('#card1').text(symbol_seq[current_idx]);
     }
 
-    var is_opening = false;
     var open_next = function(complete) {
         if(!is_opening) {
             is_opening = true;
@@ -65,7 +66,7 @@ function SameGame($) {
     var initialize = function() {
         // Ensure elements visibility (repeat game)
         $('#game-holder').removeClass('hidden');
-        $('#buttons-holder').removeClass('hidden');
+        $('.buttons-holder').removeClass('hidden');
         $('#game-over').addClass('hidden');
         // Ensure elements color (repeat game)
         $('#card2').css(
@@ -83,6 +84,7 @@ function SameGame($) {
         c2 = $('#card2').position();
         green = $.Color('green').toHexString();
         red = $.Color('red').toHexString();
+        button_color = $.Color($('#same-btn').css('background-color'));
         $slider = $('#slider');
     }
 
@@ -114,7 +116,7 @@ function SameGame($) {
 
     var game_over = function() {
         $('#game-holder').addClass('hidden');
-        $('#buttons-holder').addClass('hidden');
+        $('.buttons-holder').addClass('hidden');
         $('#game-over').removeClass('hidden');
         $(document).off('keydown');
         the_same_game = undefined;
@@ -146,14 +148,39 @@ function SameGame($) {
         }
     }
 
-    var on_same_click = function() {
+    var on_same_click = function($button) {
         var correct = (symbol_seq[current_idx] == symbol_seq[current_idx - 1]);
         on_button_click(correct);
+        button_click_animation($button, correct);
     }
 
-    var on_another_click = function() {
+    var on_another_click = function($button) {
         var correct = (symbol_seq[current_idx] != symbol_seq[current_idx - 1]);
         on_button_click(correct);
+        button_click_animation($button, correct);
+    }
+
+    var button_click_animation = function($button, correct) {
+        var blink_color = red;
+        if(correct) {
+            blink_color = green;
+        }
+        $button.animate(
+            {
+                'background-color': blink_color
+            }, {
+                duration: 150,
+                complete: function() {
+                    $button.animate(
+                        {
+                            'background-color': button_color
+                        }, {
+                            duration: 150
+                        }
+                    )
+                }
+            }
+        );
     }
 
     var is_clicking = false;
@@ -198,12 +225,12 @@ function on_repeat_click() {
     the_same_game = SameGame($);
 }
 
-function on_same_click() {
-    the_same_game.on_same_click();
+function on_same_click(button) {
+    the_same_game.on_same_click($(button));
 }
 
-function on_another_click() {
-    the_same_game.on_another_click();
+function on_another_click(button) {
+    the_same_game.on_another_click($(button));
 }
 
 function on_start_click() {
@@ -211,4 +238,3 @@ function on_start_click() {
     $('#game-holder').removeClass('hidden');
     on_repeat_click();
 }
-
