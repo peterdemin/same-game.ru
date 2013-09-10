@@ -1,20 +1,38 @@
 class Slider
-  constructor: (origin_, destination_, slider_) ->
+  constructor: (origin_
+                destination_
+                slider_
+                @duration=4000
+                @reveal_next
+                @complete) ->
     @origin = $(origin_)
     @destination = $(destination_)
     @slider = $(slider_)
-    @dispatcher = _.clone(Backbone.Events)
+    _.extend(@, Backbone.Events)
+    @slide_once()
 
-  slide: (reveal_next, complete) ->
+  slide_once: () ->
+    @once(
+      "slide"
+      (reveal_next, complete) =>
+        @slide(
+          reveal_next
+          () =>
+            complete ?= @complete
+            complete?()
+            @slide_once()
+        )
+    )
+
+  slide: (reveal_next=@reveal_next,
+          complete=@complete) ->
     @slider.css 'left', @origin.position().left
     @slider.css 'z-index', 100
     reveal_next?()
     @slider.animate(
-      {
-        'top': @destination.position().top
-        'left': @destination.position().left
-      }
-      duration: 400
+        top: @destination.position().top
+        left: @destination.position().left
+      duration: @duration
       complete: =>
         @destination.css('background-color'
                          @slider.css 'background-color')
@@ -28,8 +46,19 @@ $ () ->
     ".origin"
     ".destination"
     ".slider"
+    null
+    () -> $(".origin").text "C"
+    null
   )
   setTimeout(
-    () -> s.slide(() -> $(".origin").text "C")
+    () -> s.trigger("slide")
     500
+  )
+  $(".origin").click(() ->
+    s.trigger("slide", null, () ->
+      $(".destination").css(
+        'background-color'
+        'red'
+      )
+    )
   )
