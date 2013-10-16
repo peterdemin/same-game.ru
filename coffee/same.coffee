@@ -12,6 +12,10 @@ jQuery ->
       multiplier: 1
       username: 'Anonymous'
 
+    reset: =>
+      @set 'points', 0
+      @set 'multiplier', 1
+
     reward: =>
       m = @get('multiplier')
       @set 'points', @get('points') + m
@@ -22,6 +26,30 @@ jQuery ->
       @set('multiplier', Math.max(1, Math.floor(m / 2)))
 
 
+  class CountDown extends Backbone.Model
+    defaults:
+      remains: 40
+
+    reset: =>
+      @clear().set(@defaults)
+
+    start: =>
+      @reset()
+      @timer = setInterval(
+        @tick,
+        1000
+      )
+
+    tick: =>
+      @trigger 'tick'
+      r = @get 'remains'
+      if r > 0
+        @set 'remains', r - 1
+      else
+        clearInterval @timer
+        @trigger 'finish'
+
+
   class Deck extends Backbone.Collection
     model: Card
     alphabet: "abc"
@@ -29,12 +57,28 @@ jQuery ->
     initialize: ->
       @sameness = 0.5 - 1.0 / @alphabet.length
       @score = new Score
+      @count_down = new CountDown
+      @status = 'paused'
 
     start_game: =>
+      @status = 'playing'
       @add_card()
+      @score.reset()
+
+    stop_game: =>
+      @reset()
+      @count_down.reset()
+      @status = 'paused'
 
     add_card: =>
-      if @length > 2 and Math.random() < @sameness
+      if @status isnt 'playing'
+        return
+      if @length == 0
+        # well, we should not be here
+      else if @length == 1
+        # NOW the real game begin!
+        @count_down.start()
+      else if Math.random() < @sameness
         next_symbol = @at(@length - 1).get('symbol')
       else
         symbol_idx = Math.floor(Math.random() * @alphabet.length)
@@ -95,23 +139,86 @@ jQuery ->
 
     initialize: ->
       @disabled = false
-      $(document).keydown @on_key_up
       @deck = new Deck
       @deck.on 'add', @on_card_added
-      @render()
-      @score = new ScoreView model: @deck.score, el: @$('div.score')
+      @deck.count_down.on 'finish', @on_finish
+      @render_preface()
       @button_default_color = $('button').css 'backgroundColor'
+      $(document).keydown @on_key_down
+
+    on_start: =>
+      @render_game()
       @deck.start_game()
 
-    render: =>
-      @$el.append """
-        <div class="score"></div>
+    on_finish: =>
+      @deck.stop_game()
+      @render_result()
+
+    on_repeat: =>
+      @on_start()
+
+    render_game: =>
+      @$el.html """
+        <div class="score-wrapper">
+          Your score is <span class="score"></span>.
+        </div>
+        <div class="score-wrapper">
+          The game will end in <span class="count-down"></span> seconds.
+        </div>
         <div class="cards"></div>
         <div class="buttons">
           <button class="btn another">← Another</button>
           <button class="btn same">Same →</button>
         </div>
       """
+      @score = new ScoreView model: @deck.score, el: @$('.score')
+      @$('.count-down').text @deck.count_down.get 'remains'
+      @deck.count_down.on 'change:remains', =>
+        @$('.count-down').text @deck.count_down.get 'remains'
+
+    render_preface: =>
+      @$el.html """
+        <h1>
+            Same symbol game
+        </h1>
+        <p>
+            Memorize the symbol.
+        </p>
+        <p>
+            Answer, does the current symbol match the symbol
+            that came immediatly before it?
+        </p>
+        <p>
+            You can use keyboard arrows:
+        </p>
+        <div class="row">
+            <div class="col-lg-6 text-right">
+                ← for "Another"
+            </div>
+            <div class="col-lg-6">
+                → for "Same"
+            </div>
+        </div>
+        <p style="text-align: center">
+            <button class="btn start">
+                Start!
+            </button>
+        </p>
+      """
+
+    render_result: =>
+      @$el.html """
+        <h1>
+            Horay!
+        </h1>
+        <p class="score-wrapper">
+          Your score is <span class="score"></span>
+        </p>
+        <p>
+            <button class="btn repeat">Repeat!</button>
+        </p>
+      """
+      @$('.score').text @score.model.get 'points'
 
     on_same_button_clicked: =>
       right = @on_button_clicked(true)
@@ -144,7 +251,7 @@ jQuery ->
       if @deck.length > 1
         @deck.at(@deck.length - 2).trigger('flip')
 
-    on_key_up: (keyboard_event) =>
+    on_key_down: (keyboard_event) =>
       if keyboard_event.which == 37
         @on_another_button_clicked()
       else if keyboard_event.which == 39
@@ -161,7 +268,9 @@ jQuery ->
     events:
       'click button.another': 'on_another_button_clicked'
       'click button.same': 'on_same_button_clicked'
-      'keyup': 'on_key_up'
+      'click button.start': 'on_start'
+      'click button.repeat': 'on_repeat'
+      # 'keyup': 'on_key_down'
 
 
   class ScoreView extends Backbone.View
@@ -173,11 +282,10 @@ jQuery ->
       @render()
 
     render: =>
-      @$el.text "Your score: " + @model.get('points') + " pts"
+      @$el.text @model.get 'points'
       @
-
 
   $('.box').css
     perspective: '300px'
     'transform-origin': '120% 50%'
-  deck_view = new DeckView
+  $(document).deck_view = new DeckView el: $('.wrapper')

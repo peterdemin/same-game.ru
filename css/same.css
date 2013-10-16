@@ -134,6 +134,11 @@ body {
   text-align: center;
   text-transform: uppercase;
 }
+.wrapper .btn {
+  border: 0px;
+  border-radius: 5px;
+  padding: 20px;
+}
 .wrapper .buttons {
   text-align: center;
   margin: 20px 0px 0px 0px;
