@@ -131,3 +131,58 @@ body {
     }
 }
 
+
+
+
+
+
+
+body {
+    z-index: 1;
+    margin: 0pt;
+    padding: 0pt;
+}
+
+.wrapper {
+    @card_side: 144pt;
+    @board_width: ((@card_side*1.2*2) + (2*20*4) + 20);
+    @board_height: (@card_side + (2*20*2));
+    padding: 20pt;
+    margin: 20px auto;
+    background-color: #f0f0ff;
+    width: @board_width + (20*2);
+    .cards {
+        position: relative;
+        padding: 20px;
+        background-color: #003000;
+        width: @board_width;
+        height: @board_height;
+        .card {
+            font-family: sans-serif;
+            border: 5px solid #eeeed0;
+            position: absolute;
+            color: black;
+            background-color: #fffff0;
+            font-size: @card_side;
+            line-height: (@card_side*1.2);
+            // display: inline-block;
+            margin: 20px 10px 20px 10px;
+            padding: 10px 40px 40px 40px;
+            border-radius: 15px;
+            width: @card_side;
+            height: @card_side;
+            text-align: center;
+            text-transform: uppercase;
+        }
+    }
+    .buttons {
+        // width: 50%;
+        text-align: center;
+        margin: 20px 0px 0px 0px;
+        .another, .same {
+            border: 0px;
+            border-radius: 5px;
+            padding: 20px;
+        }
+    }
+}

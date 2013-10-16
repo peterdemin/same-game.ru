@@ -100,3 +100,47 @@ body {
   /*text-align: center;*/
 
 }
+body {
+  z-index: 1;
+  margin: 0pt;
+  padding: 0pt;
+}
+.wrapper {
+  padding: 20pt;
+  margin: 20px auto;
+  background-color: #f0f0ff;
+  width: 565.5999999999999pt;
+}
+.wrapper .cards {
+  position: relative;
+  padding: 20px;
+  background-color: #003000;
+  width: 525.5999999999999pt;
+  height: 224pt;
+}
+.wrapper .cards .card {
+  font-family: sans-serif;
+  border: 5px solid #eeeed0;
+  position: absolute;
+  color: black;
+  background-color: #fffff0;
+  font-size: 144pt;
+  line-height: 172.79999999999998pt;
+  margin: 20px 10px 20px 10px;
+  padding: 10px 40px 40px 40px;
+  border-radius: 15px;
+  width: 144pt;
+  height: 144pt;
+  text-align: center;
+  text-transform: uppercase;
+}
+.wrapper .buttons {
+  text-align: center;
+  margin: 20px 0px 0px 0px;
+}
+.wrapper .buttons .another,
+.wrapper .buttons .same {
+  border: 0px;
+  border-radius: 5px;
+  padding: 20px;
+}

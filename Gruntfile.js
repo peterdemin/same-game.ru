@@ -11,7 +11,8 @@ module.exports = function (grunt) {
           yuicompress: false
         },
         files: {
-          'css/same.css': 'less/same.less'
+          'css/same.css': 'less/same.less',
+          'css/slider.css': 'less/slider.less'
         }
       }
     },
