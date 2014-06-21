@@ -12,7 +12,8 @@ module.exports = function (grunt) {
         },
         files: {
           'css/same.css': 'less/same.less',
-          'css/slider.css': 'less/slider.less'
+          'css/slider.css': 'less/slider.less',
+          'css/matrix.css': 'less/matrix.less'
         }
       }
     },
@@ -23,7 +24,8 @@ module.exports = function (grunt) {
         // }
         files: {
           'js/same.c.js': 'coffee/same.coffee',
-          'js/slider.c.js': 'coffee/slider.coffee'
+          'js/slider.c.js': 'coffee/slider.coffee',
+          'js/matrix.js': 'coffee/matrix.coffee'
         }
       }
     },

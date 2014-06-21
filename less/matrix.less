@@ -1,0 +1,22 @@
+.matrix {
+    position: relative;
+    width: 400px;
+    height: 400px;
+
+    .cell {
+        background-color: green;
+        position: absolute;
+        width: 18%;
+        height: 18%;
+    }
+
+    .cell.selected {
+        background-color: purple;
+    }
+}
+
+.matrix.preview {
+    .cell.correct {
+        background-color: purple;
+    }
+}
