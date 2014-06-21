@@ -6,11 +6,11 @@
     .cell {
         background-color: green;
         position: absolute;
-        width: 18%;
-        height: 18%;
+        width: 62px;
+        height: 62px;
     }
 
-    .cell.selected {
+    .cell.correct.selected {
         background-color: purple;
     }
 }
@@ -19,4 +19,19 @@
     .cell.correct {
         background-color: purple;
     }
+}
+
+.win, .lose {
+  background-color: rgba(255, 255, 255, 0.5);
+  font-size: 24pt;
+  text-align: center;
+  line-height: 30pt;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  position: absolute;
+}
+
+.hidden {
+  display: None;
 }
